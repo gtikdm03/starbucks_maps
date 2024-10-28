@@ -64,7 +64,7 @@ def starbucks_crawling():
         time.sleep(1)
 
 def run_make_starbucks_map():
-    starbucks_data = pd.read_excel(file_name)
+    starbucks_data = pd.read_excel(file_name, encoding="cp949")
     starbucks_maps = folium.Map(location=[35.90113674141647, 127.97481460691101], zoom_start=7)
     marker_cluster = MarkerCluster().add_to(starbucks_maps)
     for name, lat, lng in zip(starbucks_data['매장명'], starbucks_data['위도'], starbucks_data['경도']):
