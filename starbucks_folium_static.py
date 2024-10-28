@@ -16,8 +16,7 @@ import streamlit as st  # Add this import at the top of your file
 import streamlit_folium as st_folium  # Ensure this import is present
 
 
-path = os.path.join(os.path.expanduser('~'),'Desktop/')
-file_name = 'starbucks_information.xlsx'
+path = 'starbucks_information.xlsx'
 
 def starbucks_crawling():
     chrome_options = Options()
@@ -56,7 +55,7 @@ def starbucks_crawling():
             tel = starbucks.select('p')[0].get_text(separator='\n').split('\n')[1].strip()
             starbucks_info.append((starbucks_name, lat, lng, store_type, address, tel))
             starbucks_df = pd.DataFrame(starbucks_info, columns=columns)
-            starbucks_df.to_excel(path + file_name, index=False)
+            starbucks_df.to_excel(path, index=False)
             rank+=1
             print('{}번째 매장 크롤링 완료!'.format(rank))
         print('{}지역의 크롤링이 완료되었습니다.'.format(local))
@@ -64,7 +63,7 @@ def starbucks_crawling():
         time.sleep(1)
 
 def run_make_starbucks_map():
-    starbucks_data = pd.read_excel(path + file_name)
+    starbucks_data = pd.read_excel(path)
     starbucks_maps = folium.Map(location=[35.90113674141647, 127.97481460691101], zoom_start=7)
     marker_cluster = MarkerCluster().add_to(starbucks_maps)
     for name, lat, lng in zip(starbucks_data['매장명'], starbucks_data['위도'], starbucks_data['경도']):
