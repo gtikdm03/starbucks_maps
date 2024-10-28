@@ -15,9 +15,7 @@ from folium.plugins import MarkerCluster
 import streamlit as st  # Add this import at the top of your file
 import streamlit_folium as st_folium  # Ensure this import is present
 
-file_name = 'starbucks_information.xlsx'
-
-starbucks_data = pd.read_excel(file_name, encoding="utf-8")
+starbucks_data = pd.read_excel('starbucks_information.xlsx')
 starbucks_maps = folium.Map(location=[35.90113674141647, 127.97481460691101], zoom_start=7)
 marker_cluster = MarkerCluster().add_to(starbucks_maps)
 for name, lat, lng in zip(starbucks_data['매장명'], starbucks_data['위도'], starbucks_data['경도']):
